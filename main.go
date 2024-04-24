@@ -42,7 +42,7 @@ func main() {
 	var outputJsonFile *os.File
 	var outputCsvFile *os.File
 
-	if outputFormats != "" {
+	if outputFormats != "" || outputJsonFileName != "" || outputCsvFileName != "" {
 		if strings.Contains(outputFormats, "json") && outputJsonFileName == "" {
 			outputJsonFileName = fmt.Sprintf("axfr-%s.json", time.Now().Format("20060102-150405"))
 		}
@@ -51,7 +51,7 @@ func main() {
 			outputCsvFileName = fmt.Sprintf("axfr-%s.csv", time.Now().Format("20060102-150405"))
 		}
 
-		if strings.Contains(outputFormats, "json") {
+		if outputJsonFileName != "" {
 			logInfo(fmt.Sprintf("Using json output file: %s", outputJsonFileName))
 			outputJsonFile, err = os.Create(outputJsonFileName)
 			if err != nil {
@@ -61,7 +61,7 @@ func main() {
 			defer outputJsonFile.Close()
 		}
 
-		if strings.Contains(outputFormats, "csv") {
+		if outputCsvFileName != "" {
 			logInfo(fmt.Sprintf("Using csv output file: %s", outputCsvFileName))
 			outputCsvFile, err = os.Create(outputCsvFileName)
 			if err != nil {
@@ -91,7 +91,11 @@ func main() {
 		}
 
 		fileDomains := strings.Split(string(content), "\n")
-		domains = append(domains, fileDomains...)
+		for _, domain := range fileDomains {
+			if domain != "" {
+				domains = append(domains, strings.TrimSpace(domain))
+			}
+		}
 	}
 
 	if len(domains) == 0 {
