@@ -5,7 +5,7 @@ AXFR does what it says, conducts zone transfers on domains against their authori
 ## Installation
 
 ```
-go install github.com/eatonchips/axfr
+go install github.com/eatonchips/axfr@latest
 ```
 
 ```
@@ -99,7 +99,7 @@ example.com@1.1.1.1
 
 $ axfr -f domains-file 
 [*] Reading domains from file
-[*] Using nameserver: 10.2.0.1
+[*] Using nameserver: 10.0.0.1
 [*] Attempting zone transfer for 4 domains
 [+] Zone transfer successful for zonetransfer.me against nsztm1.digi.ninja, identified 50 records
 [+] Zone transfer successful for zonetransfer.me against nsztm2.digi.ninja, identified 51 records
@@ -108,7 +108,7 @@ $ axfr -f domains-file
 [-] Zone transfer failed for example.com against 1.1.1.1: dns: bad xfr rcode: 5
 
 $ go run main.go -d zonetransfer.me@hal.ns.cloudflare.com
-[*] Using nameserver: 10.2.0.1
+[*] Using nameserver: 10.0.0.1
 [*] Attempting zone transfer for 1 domains
 [-] Zone transfer failed for zonetransfer.me against hal.ns.cloudflare.com: dns: bad xfr rcode: 1
 ```
