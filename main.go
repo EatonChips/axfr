@@ -115,6 +115,10 @@ func main() {
 	zoneTransferResults := []ZoneTransferResult{}
 
 	for _, domain := range domains {
+		if domain == "" {
+			continue
+		}
+
 		nameservers := []string{}
 		if strings.Contains(domain, "@") {
 			splitDomain := strings.Split(domain, "@")
