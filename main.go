@@ -192,7 +192,7 @@ func getNameservers(domain string) ([]string, error) {
 	m.SetQuestion(dns.Fqdn(domain), dns.TypeNS)
 	m.RecursionDesired = true
 
-	r, _, err := c.Exchange(m, nameserver+":53")
+	r, _, err := c.Exchange(m, fmt.Sprintf("[%s]:53", nameserver))
 	if err != nil {
 		return []string{""}, err
 	}
